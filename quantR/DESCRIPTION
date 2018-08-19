@@ -1,0 +1,13 @@
+Package: quantR
+Type: Package
+Title: Become a Quant with R - Tutorials
+Version: 2.0-0
+Date: 2018-08-19
+Authors@R: c(
+  person("Ronald", "Hochreiter", email = "ron@hochreiter.net", role = c("aut", "cre")))
+Maintainer: Ronald Hochreiter <ron@hochreiter.net>
+Description: Open any tutorial code from "Become a Quant with R". Furthermore update the tutorial contents anytime without updating the package.
+Depends: R (>= 3.2), devtools
+License: MIT + file LICENSE
+URL: http://www.quant-r.com/
+RoxygenNote: 6.1.0
