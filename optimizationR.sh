@@ -34,3 +34,6 @@ cp ../optimization-r/packages.rda optimizationR/inst/packages.rda
 cp ../optimization-r/tutorials.csv optimizationR/inst/tutorials.csv
 cp ../optimization-r/codes/*.R optimizationR/inst/
 rm optimizationR/inst/header.R
+
+cp ../optimization-r/packages.rda optimizationR/data/packages.rda
+cp ../learn-r/package/R/datasets.R optimizationR/R/datasets.R

@@ -20,7 +20,8 @@ tutorial <- function(tutorial=0) {
       # destfile <- paste0(tempdir(), "/", short, ".R")
       # download.file(url, destfile, quiet=TRUE)
       tutorial.filename <- paste0(path.package("optimizationR"), "/", tutorial ,".R")
-      file.edit(tutorial.filename, title=paste0(short, ".R"))
+      # file.edit(tutorial.filename, title=paste0(short, ".R"))
+      return(tutorial.filename)
     } else {
       warning(paste0("Unfortunately, Tutorial #", tutorial, " is not available!"))
       return(FALSE)

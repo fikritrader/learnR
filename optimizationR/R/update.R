@@ -29,7 +29,7 @@ update <- function() {
   status3 <- list()
   for(index in tutorials$id) {
     current.file <- paste0(index, ".R")
-    url <- paste0("https://s3.amazonaws.com/optimization-r.com/", current.file)
+    url <- paste0("https://s3.amazonaws.com/optimization-r.com/tutorials/", current.file)
     destfile <- paste0(tempdir(), "/", current.file)
     filename <- paste0(path.package("optimizationR"), "/", current.file)
     download.file(url, destfile, quiet=TRUE)
