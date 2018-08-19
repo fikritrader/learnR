@@ -2,6 +2,8 @@
 
 DATE=`date +%Y-%m-%d`
 
+###
+
 cp ../learn-r/package/LICENSE optimizationR/LICENSE
 cat ../learn-r/package/DESCRIPTION | sed "s/learn-r.net/optimization-r.com/" > optimizationR/DESCRIPTION1
 cat optimizationR/DESCRIPTION1 | sed "s/learnRversion/2.0-0/" > optimizationR/DESCRIPTION2
@@ -25,3 +27,10 @@ cat ../learn-r/package/R/tutorials.R | sed "s/learnR/optimizationR/" > optimizat
 cat ../learn-r/package/R/update.R | sed "s/learn-r.net/optimization-r.com/" > optimizationR/R/update.R1
 cat optimizationR/R/update.R1 | sed "s/learnR/optimizationR/" > optimizationR/R/update.R
 rm optimizationR/R/update.R?
+
+###
+
+cp ../optimization-r/packages.rda optimizationR/inst/packages.rda
+cp ../optimization-r/tutorials.csv optimizationR/inst/tutorials.csv
+cp ../optimization-r/codes/*.R optimizationR/inst/
+rm optimizationR/inst/header.R
