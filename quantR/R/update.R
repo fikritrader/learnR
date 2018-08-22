@@ -25,10 +25,17 @@ update <- function() {
   status2 <- file.copy(destfile, filename, overwrite=TRUE)
 
   # tutorials
-  # ...
-  
-  status3 <- list(FALSE)
-  
+  tutorials <- quantR::tutorials()
+  status3 <- list()
+  for(index in tutorials$id) {
+    current.file <- paste0(index, ".R")
+    url <- paste0("https://s3.amazonaws.com/quant-r.com/tutorials/", current.file)
+    destfile <- paste0(tempdir(), "/", current.file)
+    filename <- paste0(path.package("quantR"), "/", current.file)
+    download.file(url, destfile, quiet=TRUE)
+    status3[[length(status3) + 1]] <- file.copy(destfile, filename, overwrite=TRUE)
+  }
+
   # return all stati
   return(list(status1, status2, status3))
 }

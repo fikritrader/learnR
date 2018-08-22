@@ -13,5 +13,5 @@ tutorials <- function() {
   sorted.order <- sort(df.tutorials$order, index.return = TRUE)$ix
   active.tutorials <- which(df.tutorials$status == 1)
   tutorial.list <- intersect(sorted.order, active.tutorials)
-  return(df.tutorials[tutorial.list,c(3,6,4,5)])
+  return(df.tutorials[tutorial.list,c(1,3,6,4,5)])
 }

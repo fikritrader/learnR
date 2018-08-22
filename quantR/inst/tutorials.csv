@@ -1,0 +1,6 @@
+1;10000;gentle-po;2018-07-20;1;A Gentle Introduction to Portfolio Optimization;Understanding the importance of risk management - simply maximizing our wealth is the wrong approach;1;NA
+2;20000;monte-carlo;2017-11-30;1-dev;The Monte Carlo Way of Life;Life is simply too short to mess around with useless math and explicit solutions;0;NA
+3;11000;two-assets;2018-07-20;1;The Magic of Markowitz;A sensational idea that is really worth the Nobel prize - visualized with two stocks;1;NA
+4;21000;mc-options;2017-11-30;1-dev;Monte Carlo in Finance applied to Option Pricing;Creating an amazingly flexible framework to price options;0;NA
+5;12000;po-frontier;2018-07-20;1;Efficient Frontiers;Optimizing more than one dimension - handling risk and return synchronously;1;NA
+6;22000;po-local;2017-12-09;1-dev;The Wonders of Brute Force and Local Search;Magically find an optimal portfolio by crude brute force and local solution improvements;0;NA

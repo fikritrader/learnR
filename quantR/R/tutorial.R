@@ -16,10 +16,12 @@ tutorial <- function(tutorial=0) {
     pos.tutorial <- which(df.tutorials$id == tutorial)  
     if (length(pos.tutorial) == 1) {
       short <- df.tutorials$short[pos.tutorial]
-      url <- paste0("https://s3.amazonaws.com/quant-r.com/tutorial/", tutorial ,".R")
-      destfile <- paste0(tempdir(), "/", short, ".R")
-      download.file(url, destfile, quiet=TRUE)
-      file.edit(destfile, title=paste0(short, ".R"))
+      # url <- paste0("https://s3.amazonaws.com/quant-r.com/tutorial/", tutorial ,".R")
+      # destfile <- paste0(tempdir(), "/", short, ".R")
+      # download.file(url, destfile, quiet=TRUE)
+      tutorial.filename <- paste0(path.package("quantR"), "/", tutorial ,".R")
+      # file.edit(tutorial.filename, title=paste0(short, ".R"))
+      return(tutorial.filename)
     } else {
       warning(paste0("Unfortunately, Tutorial #", tutorial, " is not available!"))
       return(FALSE)

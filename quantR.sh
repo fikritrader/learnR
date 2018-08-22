@@ -25,3 +25,13 @@ cat ../learn-r/package/R/tutorials.R | sed "s/learnR/quantR/" > quantR/R/tutoria
 cat ../learn-r/package/R/update.R | sed "s/learn-r.net/quant-r.com/" > quantR/R/update.R1
 cat quantR/R/update.R1 | sed "s/learnR/quantR/" > quantR/R/update.R
 rm quantR/R/update.R?
+
+###
+
+cp ../quant-r/packages.rda quantR/inst/packages.rda
+cp ../quant-r/tutorials.csv quantR/inst/tutorials.csv
+cp ../quant-r/codes/*.R quantR/inst/
+rm quantR/inst/header.R
+
+cp ../quant-r/packages.rda quantR/data/packages.rda
+cp ../learn-r/package/R/datasets.R quantR/R/datasets.R

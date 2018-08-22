@@ -26,3 +26,13 @@ cat ../learn-r/package/R/tutorials.R | sed "s/learnR/financeR/" > financeR/R/tut
 cat ../learn-r/package/R/update.R | sed "s/learn-r.net/finance-r.com/" > financeR/R/update.R1
 cat financeR/R/update.R1 | sed "s/learnR/financeR/" > financeR/R/update.R
 rm financeR/R/update.R?
+
+###
+
+cp ../finance-r/packages.rda financeR/inst/packages.rda
+cp ../finance-r/tutorials.csv financeR/inst/tutorials.csv
+cp ../finance-r/codes/*.R financeR/inst/
+rm financeR/inst/header.R
+
+cp ../finance-r/packages.rda financeR/data/packages.rda
+cp ../learn-r/package/R/datasets.R financeR/R/datasets.R
