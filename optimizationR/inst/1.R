@@ -1,14 +1,6 @@
-########## Decision Optimization with R - http://opt-r.com/
-########## (c)2017-2018 Ronald Hochreiter <ronald@algorithmic.finance>
-
-##### Decision Optimization 101
-##### Never take a wrong decision again - simply compute your optimal decisions by modeling the reality correctly
-
-##### Please find the complete tutorial online at http://opt-r.com/1
-
 ### Libraries
 
-library(magrittr)
+library(dplyr)
 library(ROI)
 library(ROI.plugin.glpk)
 library(ompr)
@@ -24,8 +16,7 @@ sol <- linprog(f=-c(0.13, 0.1),
                lb=c(0, 0),
                ub=c(15000, 16000))
 
-solution <- round(sol$x)
-print(solution)
+sol$x
 
 ### Manual solution - using ROI
 
@@ -69,3 +60,4 @@ result <- MIPModel() %>%
   solve_model(with_ROI(solver = "glpk")) 
 get_solution(result, wrench)
 get_solution(result, pliers)
+

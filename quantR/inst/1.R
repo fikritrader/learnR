@@ -1,11 +1,3 @@
-########## Become a Quant with R - http://quant-r.com/
-########## (c)2017-2018 Ronald Hochreiter <ronald@algorithmic.finance>
-
-##### A Gentle Introduction to Portfolio Optimization
-##### Understanding the importance of risk management - simply maximizing our wealth is the wrong approach
-
-##### Please find the complete tutorial online at http://quant-r.com/1
-
 ### Libraries
 
 library(dplyr)
@@ -77,3 +69,4 @@ lp <- OP(objective = c(4, 10, 0),
 sol <- ROI_solve(lp, solver = "glpk")
 
 sol$solution
+

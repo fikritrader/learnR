@@ -1,26 +1,14 @@
-########## Become a Quant with R - http://quant-r.com/
-########## (c)2017-2018 Ronald Hochreiter <ronald@algorithmic.finance>
+require(quantmod)
 
-##### The Magic of Markowitz
-##### A sensational idea that is really worth the Nobel prize - visualized with two stocks
-
-##### Please find the complete tutorial online at http://quant-r.com/3
-
-library(quantmod)
-library(scenportopt)
-
-# select the ticker symbols of two assets for our analysis
+# select time horizon as well as the assets
 ticker1 <- "MSFT"
 ticker2 <- "GE"
-
-# select a timeframe
 timeframe <- '2017'
 
 # retrive financial data from Yahoo! Finance (not auto-assigned)
 data1 <- getSymbols(ticker1, auto.assign=FALSE)
 data2 <- getSymbols(ticker2, auto.assign=FALSE)
 
-# compute crude weekly returns
 return_lag <- 5 # 1 ... daily / 5 ... crude weekly / 20 ... (very) crude monthly
 ret1 <- as.vector(na.omit(ROC(Ad(data1[timeframe]), return_lag)))
 ret2 <- as.vector(na.omit(ROC(Ad(data2[timeframe]), return_lag)))
@@ -40,17 +28,16 @@ barplot(ret1, ylim=c(ret_min, ret_max), main=ticker1)
 barplot(ret2, ylim=c(ret_min, ret_max), main=ticker2)
 hist(ret1, xlim=c(ret_min, ret_max), ylim=c(0, hist_max), main=ticker1, xlab="")
 hist(ret2, xlim=c(ret_min, ret_max), ylim=c(0, hist_max), main=ticker2, xlab="")
-
 par(op)
 
 epsilon <- 0.05 # manual portfolio grid-size
-lambda <- seq(0, 1, by=epsilon)
+alpha <- 0.05 # Value-at-Risk alpha
+
+lambda <- seq(0, 1, by=0.05)
 portfolio_loss <- lapply(lambda, function(x) { x * ret1 + (1-x) * ret2 } )
 
 portfolio_mean <- unlist(lapply(portfolio_loss, mean))
 portfolio_sd <- unlist(lapply(portfolio_loss, sd))
-
-alpha <- 0.05 # Value-at-Risk alpha
 portfolio_varisk <- unlist(lapply(portfolio_loss, quantile, alpha))
 
 risk_report <- data.frame(lambda, 1-lambda, portfolio_mean, portfolio_sd, portfolio_varisk)
@@ -82,11 +69,10 @@ plot_minrisk(portfolio_varisk, opt_varisk, lambda[opt_varisk], ticker1, ticker2,
 plot(portfolio_sd, portfolio_mean, type="l", main="Mean/Risk - Standard Deviation", xlab="Standard Deviation", ylab="Mean")
 points(portfolio_sd[opt_sd], portfolio_mean[opt_sd], col="red", pch=16)
 points(portfolio_sd, portfolio_mean)
-grid(lwd=2)
 
 plot(portfolio_varisk, portfolio_mean, type="l", main="Mean/Risk - Value-at-Risk (95%)", xlab="Value-at-Risk (95%)", ylab="Mean")
 points(portfolio_varisk[opt_varisk], portfolio_mean[opt_varisk], col="red", pch=16)
 points(portfolio_varisk, portfolio_mean)
-grid(lwd=2)
 
-print(round(x(optimal.portfolio(data.frame(ret1, ret2))), 2))
+print(markowitz(data.frame(ret1, ret2)))
+

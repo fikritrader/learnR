@@ -1,25 +1,15 @@
-########## Become a Quant with R - http://quant-r.com/
-########## (c)2017-2018 Ronald Hochreiter <ronald@algorithmic.finance>
-
-##### Efficient Frontiers
-##### Optimizing more than one dimension - handling risk and return synchronously
-
-##### Please find the complete tutorial online at http://quant-r.com/5
-
 ### Libraries
 
+require(quantR)
 library(xts)
 library(tseries)
+library(quadprog) # replace with modopt.matlab!
 library(modopt.matlab)
 
 ### Data
 
-load(url("https://s3.amazonaws.com/learn-r.net/quant-r/sp100w17.rda"))
-
-sort.by.volume <- sort(sp100w17av, index.return=TRUE, decreasing = TRUE)
-top30.volume <- sort(sort.by.volume$ix[1:30])
-
-scenario.set <- sp100w17[, top30.volume]
+data(djia2013w)
+scenario.set <- djia2013w
 
 ### Analyse scenarios
 
@@ -70,46 +60,16 @@ portfolio.manual <- round(solution$x, 2)
 barplot(round(matrix(c(portfolio.tseries, portfolio.manual), nrow=2, byrow=TRUE), 2),
         beside=TRUE, names.arg = names(scenario.set))
 
-markowitz <- function(scenario.data, mu=NULL, bound.lower=0, bound.upper=1) {
-  # parameter
-  eps <- 2
-  assets <- ncol(scenario.data)
-  
-  ### optimization model
+filename <- paste0(path.package("quantR"), "/markowitz.R")
+cat( readLines( filename ) , sep = "\n" )
 
-  
-  # objective function
-  Q <- cov(scenario.data)
-  f <- rep(0, assets)
-  
-  # budget constraint
-  Aeq <- rep(1, assets)
-  beq <- 1
-  
-  # minimum mean constraint
-  if(!is.null(mu)) {
-    # sign change of inequality constraint
-    sign <- 1
-    if (mu > mean(colMeans(scenario.data))) { sign <- -1 }
-    A <- sign * as.numeric(colMeans(scenario.data))
-    b <- sign * mu
-  } else { 
-    A <- NULL
-    b <- NULL
-  }
-  
-  # upper and lower bounds
-  lb <- rep(bound.lower, assets)
-  ub <- rep(bound.upper, assets)
-  
-  # optimization
-  solution <- quadprog(Q, f, A, b, Aeq, beq, lb, ub)
-  return(round(solution$x, eps))
-}
+x1 <- portfolio.optim(scenario.set, pm=mean(asset_mean)/2)$pw
+x2 <- markowitz(scenario.set, mu=mean(asset_mean)/2)
+print(all.equal(x1, x2))
 
 ### Compute efficient frontier
 
-frontier_size <- 20 + 2 # to avoid numerical instabilities
+frontier_size <- 20 + 2
 frontier <- seq(min(asset_mean), max(asset_mean), length.out=frontier_size)
 
 # Compute frontier using a loop
@@ -181,3 +141,4 @@ points(asset_sd, asset_mean)
 text(asset_sd, asset_mean, names(scenario.set), pos=1)
 points(sd(loss), mean(loss), col="red", pch=16)
 segments(0, risk.free, sd(loss), mean(loss), col="red")
+
